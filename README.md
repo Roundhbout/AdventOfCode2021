@@ -1,4 +1,5 @@
 # AdventOfCode2021
+
 Advent of Code 2021 - Python
 
 | Day   | Stars |
@@ -6,7 +7,7 @@ Advent of Code 2021 - Python
 | 01    | **    |
 | 02    | **    |
 | 03    | **    |
-| 04    |       |
+| 04    | **    |
 | 05    |       |
 | 06    |       |
 | 07    |       |
