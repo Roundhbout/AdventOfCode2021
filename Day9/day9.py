@@ -23,6 +23,20 @@ def find_low_points(heightmap):
                 low_points.append((row, col))
     return low_points
 
+def create_basin(heightmap, lowpoint):
+    frontier = [lowpoint]
+    explored = []
+    while frontier:
+        curpoint = frontier.pop(0)
+        explored.append(curpoint)
+        currow, curcol = curpoint
+        curneighbors = get_neighbors(heightmap, currow, curcol)
+        for n in curneighbors:
+            if n not in frontier and n not in explored:
+                nrow, ncol = n
+                if heightmap[nrow][ncol] < 9:
+                    frontier.append(n)
+    return explored
 
 """ Current Idea:
     given that we can get low points with find_low_points,
@@ -30,10 +44,22 @@ def find_low_points(heightmap):
     no non-9 can be found (on the origin point then it's immediate neighbors)
     and return a list of that"""
 def find_basins(heightmap):
-    pass
+    low_points = find_low_points(heightmap)
+    basins = []
+    for lp in low_points:
+        basins.append(create_basin(heightmap, lp))
+    
+    return basins
 
 def part1():
     low_points = find_low_points(heightmap)
     return sum(heightmap[r][c] + 1 for r,c in low_points)
+def part2():
+    basins = sorted(find_basins(heightmap), key=lambda b: len(b), reverse=True)
+    product = 1
+    for i in range(3):
+        product *= len(basins.pop(0))
+    return product
 
 print(f'PART 1: {part1()}')
+print(f'PART 2: {part2()}')
